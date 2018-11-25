@@ -40,11 +40,15 @@ const longestPalindrome = s => {
   }
 
   //NOTE: Need to be careful implemented native sort method due to inconsistent implementation across different browsers.
-  return palindromes.sort((a, b) => b.length > a.length)[0];
+  //   console.log(palindromes);
+  return palindromes.sort((a, b) => b.length - a.length)[0];
 };
 
+console.log(longestPalindrome("abcdefghijklmnoprstuvwxyzracecar"));
 /**
  *
  * This solution takes O(n^2) time, and a test run in google chrome with an input string of length 999 took over 18 seconds to compute.
  *
  */
+
+module.exports = longestPalindrome;
