@@ -39,26 +39,29 @@ function LinkedList() {
     let fast = this.head.next;
     let previousFast = slow;
     let go = true;
-    while (slow.next) {
+    while (slow) {
       if (go === false) {
+        console.log("am i stuck here");
         fast = slow.next;
-      }
-      go = true;
-      while (go) {
-        if (!fast) {
-          go = false;
-        } else if (slow.data === fast.data) {
-          //   console.log("equal:", slow.data, fast.data);
-          fast = fast.next;
-          previousFast.next = fast;
-        } else {
-          //console.log("unequal:", slow.data, fast.data);
-          previousFast = fast; // iterate previous fast
-          fast = fast.next; // iterate fast
+      } else {
+        go = true;
+        while (go) {
+          if (!fast) {
+            go = false;
+          } else if (slow.data === fast.data) {
+            //   console.log("equal:", slow.data, fast.data);
+            fast = fast.next;
+            previousFast.next = fast;
+          } else {
+            //console.log("unequal:", slow.data, fast.data);
+            previousFast = fast; // iterate previous fast
+            fast = fast.next; // iterate fast
+          }
         }
       }
       slow = slow.next;
     }
+    this.printAllNodes();
     return;
   };
   this.printAllNodes = function() {
