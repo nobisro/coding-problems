@@ -117,10 +117,10 @@ const sumList1 = new LinkedList();
 const sumList2 = new LinkedList();
 sumList1.addToTail(7);
 sumList1.addToTail(1);
-sumList1.addToTail(6);
-sumList2.addToTail(5);
-sumList2.addToTail(9);
+sumList1.addToTail(9);
 sumList2.addToTail(2);
+sumList2.addToTail(3);
+sumList2.addToTail(4);
 
 // console.log(sumList2.head.data);
 // console.log(sumList2.head.next.data);
@@ -136,19 +136,22 @@ function addLists(list1, list2) {
       return null;
     } else if (list1 === null && list2 === null && carry) {
       list3.addToTail(carry);
+      return;
     }
 
     let value = carry;
-    if (list1.head) {
+    if (list1 !== null && list1.head) {
       value += list1.head.data;
-    } else if (list1.data) {
+    } else if (list1 !== null && list1.data) {
       value += list1.data;
     }
-    if (list2.head) {
+    if (list2 !== null && list2.head) {
       value += list2.head.data;
-    } else if (list2.data) {
+    } else if (list2 !== null && list2.data) {
       value += list2.data;
     }
+    console.log("value:", value);
+
     let newValue;
     let newCarry;
     if (value - 10 >= 0) {
@@ -158,15 +161,18 @@ function addLists(list1, list2) {
       newValue = value;
       newCarry = 0;
     }
+    console.log("newValue:", newValue);
+    console.log("newCarry:", newCarry);
     list3.addToTail(newValue);
 
     if (list1.head && list2.head) {
-      console.log("carry:", newCarry);
-
+      //console.log("new carry:", newCarry);
       addListsRecursion(list1.head.next, list2.head.next, newCarry);
-    } else if (list1.next && list2.next) {
-      //console.log("carry:", newCarry);
+    } else if (list1 && list2) {
+      console.log("new carry:", newCarry);
       addListsRecursion(list1.next, list2.next, newCarry);
+    } else if (!list1 && !list2 && carry) {
+      addListsRecursion(null, null, carry);
     }
   }
   console.log("=======");
