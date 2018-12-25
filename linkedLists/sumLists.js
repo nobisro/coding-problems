@@ -11,15 +11,15 @@ Input: (6 -> 1 -> 7) + (2 -> 9 -> 5).Thatis,617 + 295.
 Output: 9 - > 1 - > 2. That is, 912.
 */
 
-const LinkedList = require("./removeDuplicates");
-const list1 = new LinkedList();
-list1.addNodes(7);
-list1.addNodes(1);
-list1.addNodes(6);
-const list2 = new LinkedList();
-list2.addNodes(5);
-list2.addNodes(9);
-list2.addNodes(2);
+const LinkedList = require("./makeList");
+// const list1 = new LinkedList();
+// list1.addNodes(7);
+// list1.addNodes(1);
+// list1.addNodes(6);
+// const list2 = new LinkedList();
+// list2.addNodes(5);
+// list2.addNodes(9);
+// list2.addNodes(2);
 
 function sumLists(list1, list2) {
   /*
@@ -78,4 +78,107 @@ function sumLists(list1, list2) {
   return list3;
 }
 
-sumLists(list1, list2);
+//sumLists(list1, list2);
+
+/*
+|===============|
+|Gail's Solution|
+|===============|
+
+LinkedListNode addLists(LinkedListNode 11, LinkedListNode 12, int carry) {
+2 if (11 == null && 12 == null && carry == 0) {
+3 return nullj
+4 }
+5
+6 LinkedListNode result new LinkedListNode()j
+7 int value = carryj
+8 if (11 != nUll) {
+9 value += 11.data
+10 }
+11 if (12 != null) {
+    value += 12.data
+13 }
+14
+15 result.data value %  / * Second digit of number 
+ 
+---Recurse---
+18 if (11 != null I I 12 != nUll) {
+    19 LinkedListNode more = addLists(ll == null? null: 11. next,
+    20 12 == null? null: 12.next,
+    21 value >= 18 ? 1 : 0)j
+    22 res ult.setNext(more)j
+    23 }
+    24 return resultj
+    25 }
+
+*/
+
+const sumList1 = new LinkedList();
+const sumList2 = new LinkedList();
+sumList1.addToTail(7);
+sumList1.addToTail(1);
+sumList1.addToTail(6);
+sumList2.addToTail(5);
+sumList2.addToTail(9);
+sumList2.addToTail(2);
+
+// console.log(sumList2.head.data);
+// console.log(sumList2.head.next.data);
+// console.log(sumList2.head.next.next.data);
+
+function addLists(list1, list2) {
+  let list3 = new LinkedList();
+
+  addListsRecursion(list1, list2, 0);
+
+  function addListsRecursion(list1, list2, carry) {
+    if (list1 === null && list2 === null && carry === 0) {
+      return null;
+    } else if (list1 === null && list2 === null && carry) {
+      list3.addToTail(carry);
+    }
+
+    let value = carry;
+    if (list1.head) {
+      value += list1.head.data;
+    } else if (list1.data) {
+      value += list1.data;
+    }
+    if (list2.head) {
+      value += list2.head.data;
+    } else if (list2.data) {
+      value += list2.data;
+    }
+    let newValue;
+    let newCarry;
+    if (value - 10 >= 0) {
+      newValue = 1;
+      newCarry = value - 10;
+    } else {
+      newValue = value;
+      newCarry = 0;
+    }
+    list3.addToTail(newValue);
+
+    if (list1.head && list2.head) {
+      //console.log(list1.head);
+      //console.log("carry:", newCarry);
+
+      addListsRecursion(list1.head.next, list2.head.next, newCarry);
+    } else if (list1.next && list2.next) {
+      //console.log("carry:", newCarry);
+      addListsRecursion(list1.next, list2.next, newCarry);
+    }
+  }
+  console.log("=======");
+  //console.log(list3);
+  return list3;
+}
+
+let t1 = addLists(sumList1, sumList2);
+
+let current = t1.head;
+while (current) {
+  console.log(current.data);
+  current = current.next;
+}
