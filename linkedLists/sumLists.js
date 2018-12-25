@@ -152,8 +152,8 @@ function addLists(list1, list2) {
     let newValue;
     let newCarry;
     if (value - 10 >= 0) {
-      newValue = 1;
-      newCarry = value - 10;
+      newValue = value - 10;
+      newCarry = 1;
     } else {
       newValue = value;
       newCarry = 0;
@@ -161,8 +161,7 @@ function addLists(list1, list2) {
     list3.addToTail(newValue);
 
     if (list1.head && list2.head) {
-      //console.log(list1.head);
-      //console.log("carry:", newCarry);
+      console.log("carry:", newCarry);
 
       addListsRecursion(list1.head.next, list2.head.next, newCarry);
     } else if (list1.next && list2.next) {
