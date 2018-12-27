@@ -11,7 +11,6 @@ function isUnique(string) {
   for (let i = 0; i < copy.length; i++) {
     for (let j = i + 1; j < copy.length; j++) {
       if (copy[i] === copy[j]) {
-        console.log(copy[i], copy[j]);
         return false;
       }
     }
@@ -22,3 +21,4 @@ function isUnique(string) {
 console.log(isUnique(""));
 console.log(isUnique("a"));
 console.log(isUnique("abcdefghijklmnopqrstuvwxyz"));
+console.log(isUnique("abcdefgghijklmnop"));
